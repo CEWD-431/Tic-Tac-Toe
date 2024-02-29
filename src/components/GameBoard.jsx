@@ -1,18 +1,23 @@
+const initialGameBoard = [
+  [null, null, null],
+  [null, null, null],
+  [null, null, null],
+];
 
-export default function GameBoard () {
-//game board structure
-    return (
-        <ol id="game-board">
-            <li>
-                <ol>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ol>
-            </li>
-            <li></li>
-            <li></li>
-        </ol>
-    )
-
+export default function GameBoard() {
+  return (
+    <ol id="game-board">
+      {initialGameBoard.map((row, rowIndex) => (
+        <li key={rowIndex}>
+          <ol>
+            {row.map((col, colIndex) => (
+              <li key={colIndex}>
+                <button>{col}</button>
+              </li>
+            ))}
+          </ol>
+        </li>
+      ))}
+    </ol>
+  );
 }

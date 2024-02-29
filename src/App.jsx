@@ -9,8 +9,15 @@ function App() {
   const [ gameTurns, setGameTurns ] = useState([]);
 
   function selectSquareHandler () {
-    setActivePlayer((currentActivePlayer) => currentActivePlayer === 'X' ? '0' : 'X');
-    setGameTurns(); //we are duplicating this information as it is already stored in the GameBoard state.
+    setActivePlayer(currentActivePlayer => currentActivePlayer === 'X' ? '0' : 'X');
+    setGameTurns(previousTurn => {
+      let currentPlayer = 'X';
+      if (previousTurn.length > 0 && previousTurn[0].player === 'X') {
+          currentPlayer = '0';
+      }
+      const updatedTurn = [{square: {row: rowIndex, col: colIndex}, player: currentPlayer}, ...previousTurn]
+      return updatedTurn;
+    });
   }
 
   return (

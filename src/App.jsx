@@ -4,17 +4,23 @@ import Log from "./components/Log"
 
 import { useState } from "react";
 
+function deriveActivePlayer (gameTurns) {
+  let currentPlayer = 'X';
+  if (gameTurns.length > 0 && gameTurns[0].player === 'X') {
+    currentPlayer = '0';
+  }
+  return currentPlayer;
+}
+
 function App() {
-  const [ activePlayer, setActivePlayer ] = useState('X');
+  // const [ activePlayer, setActivePlayer ] = useState('X');
   const [ gameTurns, setGameTurns ] = useState([]);
+  const activePlayer = deriveActivePlayer(gameTurns);
 
   function selectSquareHandler (rowIndex, colIndex) {
-    setActivePlayer(currentActivePlayer => currentActivePlayer === 'X' ? '0' : 'X');
+    // setActivePlayer(currentActivePlayer => currentActivePlayer === 'X' ? '0' : 'X');
     setGameTurns(previousTurn => {
-      let currentPlayer = 'X';
-      if (previousTurn.length > 0 && previousTurn[0].player === 'X') {
-          currentPlayer = '0';
-      }
+      const currentPlayer = deriveActivePlayer(previousTurn);
       const updatedTurn = [{square: {row: rowIndex, col: colIndex}, player: currentPlayer}, ...previousTurn]
       return updatedTurn;
     });
